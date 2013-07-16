@@ -82,7 +82,7 @@ function shortcode($atts){
 }
 
 //ショートコード [groupview-custom-field gname=""]
-add_shortcode('groupview-custom-field', 'shortcode');
+add_shortcode('groupview-advanced-custom-field', 'shortcode');
 
 
 
