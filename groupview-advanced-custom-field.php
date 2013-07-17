@@ -3,13 +3,13 @@
 Plugin Name: Advanced Custom Field: Shortcode for Group Field View
 Plugin URI: 
 Description: The plugin is for adding the group view for Advanced Custom Field to Wordpress.
-Version: 0.1
+Version: 0.2
 Author: Kimiya Kitani
 Author URI: 
 */
 
 $default_var = array(
-	'groupview_custom_field_ver'	=>	'0.1',
+	'groupview_custom_field_ver'	=>	'0.2',
 );
 
 /* hogehoge_01〜hogehoge_20までのうちデータとしてあるものを表示
@@ -40,6 +40,7 @@ function shortcode($atts){
 
   $gname = esc_attr(strip_tags(html_entity_decode($gname,ENT_QUOTES)));
   $limit = esc_attr(strip_tags(html_entity_decode($limit,ENT_QUOTES)));
+  $html_data = "";
 
   // $gnameがなければ処理を終了
   if(empty($gname)) return;
@@ -59,25 +60,27 @@ function shortcode($atts){
   }
 
   if(!empty($data[0])){
-      echo "<div id='gcustom_header'>\n";
+      $html_data .= "<div id='gcustom_header'>\n";
 
-      echo "<p>" . $data[0] . "</p>\n";
+      $html_data .= "<p>" . $data[0] . "</p>\n";
 
-      echo "</div>\n";
+      $html_data .= "</div>\n";
   }
   
-  echo "<div id='gcustom_body'>\n"; 
+  $html_data .= "<div id='gcustom_body'>\n"; 
 
   $num = count($data);
   for ($i=1; $i < $num - 1 ; $i++){
-      echo "  <p>" . $data[$i] . "</p>\n";
+      $html_data .=  "  <p>" . $data[$i] . "</p>\n";
   }
 
-  echo "</div>\n";
+  $html_data .=  "</div>\n";
 
-  echo "<div id='gcustom_footer'>\n";
-  echo "<p>". $data[$i] . "</p>\n";
-  echo "</div>\n";
+  $html_data .=  "<div id='gcustom_footer'>\n";
+  $html_data .=  "<p>". $data[$i] . "</p>\n";
+  $html_data .=  "</div>\n";
+  
+  echo apply_filters('the_content', $html_data);
   
 }
 
